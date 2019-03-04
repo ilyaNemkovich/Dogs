@@ -3,9 +3,9 @@ package com.example.dogs.ui.activity
 import android.os.Bundle
 import com.example.dogs.R
 import com.example.dogs.ui.base.BaseActivity
-import com.example.dogs.ui.fragment.RandomDogImageFragment
+import com.example.dogs.ui.fragment.randomDogImage.RandomDogImageFragment
 
-class MainActivity : BaseActivity() {
+class MainActivity : BaseActivity<MainActivityViewModel>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

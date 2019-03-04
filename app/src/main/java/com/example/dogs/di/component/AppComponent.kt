@@ -2,9 +2,7 @@ package com.example.dogs.di.component
 
 import com.example.dogs.App
 import com.example.dogs.di.annotations.ApplicationScope
-import com.example.dogs.di.module.ActivityModule
-import com.example.dogs.di.module.ApplicationModule
-import com.example.dogs.di.module.NetworkModule
+import com.example.dogs.di.module.*
 import dagger.Component
 import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
@@ -15,6 +13,8 @@ import dagger.android.support.AndroidSupportInjectionModule
         AndroidSupportInjectionModule::class,
         ApplicationModule::class,
         ActivityModule::class,
+        ViewModelModule::class,
+        RxModule::class,
         NetworkModule::class
     ]
 )

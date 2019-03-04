@@ -1,4 +1,4 @@
-package com.example.dogs.ui.fragment
+package com.example.dogs.ui.fragment.randomDogImage
 
 import com.example.dogs.di.annotations.FragmentScope
 import dagger.Module
