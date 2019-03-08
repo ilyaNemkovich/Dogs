@@ -9,5 +9,5 @@ class RandomImageResponse {
     var status: String? = null
     @SerializedName("message")
     @Expose
-    var message: String? = null
+    var message: List<String>? = null
 }

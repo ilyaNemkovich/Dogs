@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <android.support.constraint.ConstraintLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="70dp">
+
+        <Button android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:maxLines="1"
+                android:stateListAnimator="@xml/answer_item_selector"
+                android:background="@drawable/item_answer_background"
+                android:layout_margin="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:id="@+id/button"/>
+    </android.support.constraint.ConstraintLayout>
+</layout>
