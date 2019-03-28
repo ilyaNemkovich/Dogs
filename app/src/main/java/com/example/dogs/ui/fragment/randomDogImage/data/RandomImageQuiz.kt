@@ -2,6 +2,6 @@ package com.example.dogs.ui.fragment.randomDogImage.data
 
 data class RandomImageQuiz(
     val imageUrl: String,
-    var question: Boolean,
+    var isAnswer: Boolean,
     val breed: String
 )

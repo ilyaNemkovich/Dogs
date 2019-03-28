@@ -1,7 +1,7 @@
 package com.example.dogs.ui.fragment.randomDogImage
 
-import android.arch.lifecycle.MutableLiveData
-import android.databinding.ObservableField
+import androidx.lifecycle.MutableLiveData
+import androidx.databinding.ObservableField
 import com.example.dogs.data.network.DogApi
 import com.example.dogs.ui.base.BaseViewModel
 import com.example.dogs.ui.fragment.randomDogImage.data.DogBreeds
@@ -28,15 +28,17 @@ class RandomDogImageViewModel @Inject constructor(private val dogApi: DogApi) : 
                 for (url in it.message!!) {
                     quiz.add(RandomImageQuiz(url, false, fromUrlToBreed(url)))
                 }
-                quiz[(0..3).random()].question = true
+                quiz[(0..(it.message!!.size -1)).random()].isAnswer = true
                 Single.just(quiz)
             }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { response ->
+            .subscribe ({ response ->
                 randomImageResponse.set(response)
                 mutableRandomImageResponse.postValue(response)
-            }.let(compositeDisposable::add)
+            }, {
+
+            }).let(compositeDisposable::add)
     }
 
     fun loadImageByBreed(breed: String) {

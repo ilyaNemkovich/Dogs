@@ -1,10 +1,11 @@
 package com.example.dogs.ui.fragment.randomDogImage
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.View
+import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.dogs.BR
@@ -36,7 +37,7 @@ class RandomDogImageFragment : BaseFragment<LayoutRandomDogBinding, RandomDogIma
         viewModel.mutableRandomImageResponse.observe(this, Observer {
             if (it != null) {
                 for ((index, value) in it.withIndex())
-                    if (value.question) {
+                    if (value.isAnswer) {
                         Glide.with(this)
                             .load(it[(index)].imageUrl)
                             .apply(options)
@@ -58,16 +59,16 @@ class RandomDogImageFragment : BaseFragment<LayoutRandomDogBinding, RandomDogIma
 
     private fun setupView() {
         viewDataBinding.recyclerView.apply {
-            layoutManager = LinearLayoutManager(this@RandomDogImageFragment.context)
+            layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this@RandomDogImageFragment.context)
                 .apply { recycleChildrenOnDetach = true }
             adapter = recyclerAdapter
         }
     }
 
     override fun onItemClick(view: View, randomImageQuiz: RandomImageQuiz) {
-        when (randomImageQuiz.question){
-            true -> toast("true")
-            false -> toast("false")
+        when (randomImageQuiz.isAnswer){
+            true -> Toast.makeText(context, "true", Toast.LENGTH_LONG).show()
+            false -> Toast.makeText(context, "false", Toast.LENGTH_LONG).show()
         }
         viewModel.loadRandomUrl()
     }

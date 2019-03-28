@@ -6,7 +6,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface DogApi {
-    @GET(value = "api/breeds/image/random/4")
+    @GET(value = "api/breeds/image/random/10")
     fun getRandomImage(): Single<RandomImageResponse>
 
     @GET(value = "https://dog.ceo/api/breed/{breed}/images")

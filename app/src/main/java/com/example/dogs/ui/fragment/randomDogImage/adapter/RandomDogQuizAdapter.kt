@@ -1,6 +1,5 @@
 package com.example.dogs.ui.fragment.randomDogImage.adapter
 
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,12 +7,12 @@ import com.example.dogs.databinding.ItemQuizAnswerBinding
 import com.example.dogs.ui.fragment.randomDogImage.data.RandomImageQuiz
 
 class RandomDogQuizAdapter(private val listener: OnItemClickListener) :
-    RecyclerView.Adapter<RandomDogQuizAdapter.QuizViewHolder>() {
+    androidx.recyclerview.widget.RecyclerView.Adapter<RandomDogQuizAdapter.QuizViewHolder>() {
 
     private val _quizList = ArrayList<RandomImageQuiz>()
 
     class QuizViewHolder(private val binding: ItemQuizAnswerBinding, private val listener: OnItemClickListener) :
-        RecyclerView.ViewHolder(binding.root) {
+        androidx.recyclerview.widget.RecyclerView.ViewHolder(binding.root) {
         fun bind(randomImageQuiz: RandomImageQuiz) {
             binding.button.text = randomImageQuiz.breed
             binding.button.setOnClickListener { v -> listener.onItemClick(v, randomImageQuiz) }

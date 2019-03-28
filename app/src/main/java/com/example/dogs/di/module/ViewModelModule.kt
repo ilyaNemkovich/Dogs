@@ -1,7 +1,7 @@
 package com.example.dogs.di.module
 
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.example.dogs.di.annotations.ViewModelKey
 import com.example.dogs.ui.activity.MainActivityViewModel
 import com.example.dogs.ui.fragment.randomDogImage.RandomDogImageViewModel
