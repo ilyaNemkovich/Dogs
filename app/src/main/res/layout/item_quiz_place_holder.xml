@@ -9,16 +9,16 @@
         <com.google.android.material.button.MaterialButton
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textColor="@color/primaryTextColor"
-                android:maxLines="1"
-                app:rippleColor="@color/primaryDarkColor"
                 app:cornerRadius="8dp"
+                android:clickable="false"
+                android:backgroundTint="@color/primaryColor"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:id="@+id/button"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton" android:layout_marginTop="8dp"/>
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_marginTop="8dp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

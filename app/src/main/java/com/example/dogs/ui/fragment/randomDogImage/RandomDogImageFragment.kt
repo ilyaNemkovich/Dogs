@@ -1,11 +1,10 @@
 package com.example.dogs.ui.fragment.randomDogImage
 
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.View
 import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.dogs.BR
@@ -14,9 +13,10 @@ import com.example.dogs.databinding.LayoutRandomDogBinding
 import com.example.dogs.ui.base.BaseFragment
 import com.example.dogs.ui.fragment.randomDogImage.adapter.RandomDogQuizAdapter
 import com.example.dogs.ui.fragment.randomDogImage.data.RandomImageQuiz
-import org.jetbrains.anko.support.v4.toast
+import kotlinx.android.synthetic.main.layout_random_dog.*
 
-class RandomDogImageFragment : BaseFragment<LayoutRandomDogBinding, RandomDogImageViewModel>(), RandomDogQuizAdapter.OnItemClickListener {
+class RandomDogImageFragment : BaseFragment<LayoutRandomDogBinding, RandomDogImageViewModel>(),
+    RandomDogQuizAdapter.OnItemClickListener {
 
     private var recyclerAdapter = RandomDogQuizAdapter(this)
 
@@ -44,13 +44,15 @@ class RandomDogImageFragment : BaseFragment<LayoutRandomDogBinding, RandomDogIma
                             .into(viewDataBinding.imageView)
                     }
                 recyclerAdapter.setItems(it)
+                viewDataBinding.shimmerLayout.visibility = View.GONE
+                viewDataBinding.recyclerView.visibility = View.VISIBLE
             }
         })
 
         viewModel.mutableBreadImagesResponse.observe(this, Observer {
-            if (it != null){
+            if (it != null) {
                 Glide.with(this)
-                    .load(it.imageUrls[(0..(it.imageUrls.size-1)).random()])
+                    .load(it.imageUrls[(0..(it.imageUrls.size - 1)).random()])
                     .apply(options)
                     .into(viewDataBinding.imageView)
             }
@@ -66,7 +68,9 @@ class RandomDogImageFragment : BaseFragment<LayoutRandomDogBinding, RandomDogIma
     }
 
     override fun onItemClick(view: View, randomImageQuiz: RandomImageQuiz) {
-        when (randomImageQuiz.isAnswer){
+        viewDataBinding.shimmerLayout.visibility = View.VISIBLE
+        viewDataBinding.recyclerView.visibility = View.GONE
+        when (randomImageQuiz.isAnswer) {
             true -> Toast.makeText(context, "true", Toast.LENGTH_LONG).show()
             false -> Toast.makeText(context, "false", Toast.LENGTH_LONG).show()
         }
@@ -81,9 +85,19 @@ class RandomDogImageFragment : BaseFragment<LayoutRandomDogBinding, RandomDogIma
 
         val options = RequestOptions().apply {
             optionalCircleCrop()
-            placeholder(R.drawable.place_holder_dog)
-            error(R.drawable.load_error_dog)
+            placeholder(R.drawable.dog_ph)
             apply(RequestOptions().circleCrop())
+            error(R.drawable.load_error_dog)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewDataBinding.shimmerLayout.startShimmerAnimation()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        viewDataBinding.shimmerLayout.stopShimmerAnimation()
     }
 }

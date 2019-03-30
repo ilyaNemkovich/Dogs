@@ -15,4 +15,7 @@
         <item name="fontFamily">@font/nunito_light</item>
     </style>
 
+    <style name="AppTheme.Launcher" parent="AppTheme">
+        <item name="android:windowBackground">@drawable/splash_layer_list</item>
+    </style>
 </resources>

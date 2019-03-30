@@ -5,12 +5,12 @@
     <color name="colorAccent">#D81B60</color>
 
     <!--Theme colors-->
-    <color name="primaryColor">#aed581</color>
-    <color name="primaryLightColor">#e1ffb1</color>
-    <color name="primaryDarkColor">#7da453</color>
-    <color name="secondaryColor">#b0bec5</color>
-    <color name="secondaryLightColor">#e2f1f8</color>
-    <color name="secondaryDarkColor">#808e95</color>
+    <color name="primaryColor">#61d3a8</color>
+    <color name="primaryLightColor">#95ffda</color>
+    <color name="primaryDarkColor">#26a179</color>
+    <color name="secondaryColor">#ffffff</color>
+    <color name="secondaryLightColor">#ffffff</color>
+    <color name="secondaryDarkColor">#cccccc</color>
     <color name="primaryTextColor">#000000</color>
     <color name="secondaryTextColor">#000000</color>
 

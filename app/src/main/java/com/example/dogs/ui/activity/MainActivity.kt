@@ -8,6 +8,7 @@ import com.example.dogs.ui.fragment.randomDogImage.RandomDogImageFragment
 class MainActivity : BaseActivity<MainActivityViewModel>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
