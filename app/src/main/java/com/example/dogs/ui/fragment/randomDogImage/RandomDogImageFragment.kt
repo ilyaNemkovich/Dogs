@@ -9,13 +9,12 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.dogs.BR
 import com.example.dogs.R
-import com.example.dogs.databinding.LayoutRandomDogBinding
+import com.example.dogs.databinding.FragmentRandomDogBinding
 import com.example.dogs.ui.base.BaseFragment
 import com.example.dogs.ui.fragment.randomDogImage.adapter.RandomDogQuizAdapter
 import com.example.dogs.ui.fragment.randomDogImage.data.RandomImageQuiz
-import kotlinx.android.synthetic.main.layout_random_dog.*
 
-class RandomDogImageFragment : BaseFragment<LayoutRandomDogBinding, RandomDogImageViewModel>(),
+class RandomDogImageFragment : BaseFragment<FragmentRandomDogBinding, RandomDogImageViewModel>(),
     RandomDogQuizAdapter.OnItemClickListener {
 
     private var recyclerAdapter = RandomDogQuizAdapter(this)
@@ -23,7 +22,7 @@ class RandomDogImageFragment : BaseFragment<LayoutRandomDogBinding, RandomDogIma
     override val viewModel: RandomDogImageViewModel
         get() = ViewModelProviders.of(this, viewModelFactory).get(RandomDogImageViewModel::class.java)
     override val layoutId: Int
-        get() = R.layout.layout_random_dog
+        get() = R.layout.fragment_random_dog
     override val bindingVariables: Map<Int, Any>?
         get() = mapOf(Pair(BR.viewModel, viewModel))
 
@@ -77,6 +76,16 @@ class RandomDogImageFragment : BaseFragment<LayoutRandomDogBinding, RandomDogIma
         viewModel.loadRandomUrl()
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewDataBinding.shimmerLayout.startShimmerAnimation()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        viewDataBinding.shimmerLayout.stopShimmerAnimation()
+    }
+
     companion object {
         fun newInstance() = RandomDogImageFragment().apply {
             arguments = Bundle().apply {
@@ -89,15 +98,5 @@ class RandomDogImageFragment : BaseFragment<LayoutRandomDogBinding, RandomDogIma
             apply(RequestOptions().circleCrop())
             error(R.drawable.load_error_dog)
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewDataBinding.shimmerLayout.startShimmerAnimation()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        viewDataBinding.shimmerLayout.stopShimmerAnimation()
     }
 }

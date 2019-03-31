@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Dogs</string>
     <string name="woof">Woof</string>
+    <string name="quiz">Quiz</string>
+    <string name="info">App Info</string>
+    <string name="image">image</string>
 </resources>

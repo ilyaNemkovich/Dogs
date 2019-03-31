@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/navigation" app:startDestination="@id/navigationFragment">
+
+    <fragment android:id="@+id/navigationFragment"
+              android:name="com.example.dogs.ui.fragment.navigation.NavigationFragment"
+              android:label="NavigationFragment">
+        <action android:id="@+id/action_navigationFragment_to_randomDogImageFragment"
+                app:destination="@id/randomDogImageFragment" app:enterAnim="@animator/nav_slide_down_enter"
+                app:exitAnim="@animator/nav_slide_down_exit" app:popEnterAnim="@animator/nav_pop_slide_up_enter"
+                app:popExitAnim="@animator/nav_pop_slide_up_exit"/>
+        <action android:id="@+id/action_navigationFragment_to_appInfoFragment" app:destination="@id/appInfoFragment"
+                app:exitAnim="@animator/nav_slide_down_exit"
+                app:popEnterAnim="@animator/nav_pop_slide_up_enter" app:popExitAnim="@animator/nav_pop_slide_up_exit"
+                app:enterAnim="@animator/nav_slide_down_enter"/>
+    </fragment>
+    <fragment android:id="@+id/randomDogImageFragment"
+              android:name="com.example.dogs.ui.fragment.randomDogImage.RandomDogImageFragment"
+              android:label="RandomDogImageFragment"/>
+    <fragment android:id="@+id/appInfoFragment" android:name="com.example.dogs.ui.fragment.appInfo.AppInfoFragment"
+              android:label="AppInfoFragment"/>
+</navigation>

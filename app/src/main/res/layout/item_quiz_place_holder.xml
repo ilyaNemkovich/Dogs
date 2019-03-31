@@ -9,7 +9,7 @@
         <com.google.android.material.button.MaterialButton
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:cornerRadius="8dp"
+                app:cornerRadius="@dimen/button_corners_radius"
                 android:clickable="false"
                 android:backgroundTint="@color/primaryColor"
                 app:layout_constraintStart_toStartOf="parent"

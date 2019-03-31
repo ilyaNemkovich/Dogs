@@ -16,7 +16,7 @@
                 android:padding="16dp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:elevation="8dp"
+                android:elevation="@dimen/layout_elevation"
                 android:background="@drawable/random_image_background"
                 tools:ignore="ContentDescription"
                 android:id="@+id/frameLayout"
@@ -33,7 +33,7 @@
         </com.example.dogs.ui.custom.SquareFrameLayout>
 
         <com.facebook.shimmer.ShimmerFrameLayout
-                android:elevation="8dp"
+                android:elevation="@dimen/layout_elevation"
                 android:paddingTop="16dp"
                 android:paddingBottom="20dp"
                 android:id="@+id/shimmerLayout"
@@ -64,7 +64,7 @@
                 android:layout_width="395dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/layout_random_dog_background"
-                android:elevation="8dp"
+                android:elevation="@dimen/layout_elevation"
                 android:overScrollMode="never"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="16dp"
@@ -80,7 +80,8 @@
                 app:layout_constraintBottom_toTopOf="@+id/recyclerView" app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginEnd="32dp" app:layout_constraintHorizontal_bias="0.571"
                 android:layout_marginStart="32dp"
-                android:layout_marginBottom="8dp"/>
+                android:layout_marginBottom="8dp"
+                android:contentDescription="@string/image"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

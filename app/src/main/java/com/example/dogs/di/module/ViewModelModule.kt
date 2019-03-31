@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.dogs.di.annotations.ViewModelKey
 import com.example.dogs.ui.activity.MainActivityViewModel
+import com.example.dogs.ui.fragment.navigation.NavigationViewModel
 import com.example.dogs.ui.fragment.randomDogImage.RandomDogImageViewModel
 import com.example.dogs.ui.utils.ViewModelFactory
 import dagger.Binds
@@ -24,4 +25,9 @@ interface ViewModelModule {
     @IntoMap
     @ViewModelKey(RandomDogImageViewModel::class)
     fun randomDogImageFragment(viewModel: RandomDogImageViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(NavigationViewModel::class)
+    fun navigationFragment(viewModel: NavigationViewModel): ViewModel
 }

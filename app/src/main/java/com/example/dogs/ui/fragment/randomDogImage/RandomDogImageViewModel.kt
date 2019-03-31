@@ -1,7 +1,7 @@
 package com.example.dogs.ui.fragment.randomDogImage
 
-import androidx.lifecycle.MutableLiveData
 import androidx.databinding.ObservableField
+import androidx.lifecycle.MutableLiveData
 import com.example.dogs.data.network.DogApi
 import com.example.dogs.ui.base.BaseViewModel
 import com.example.dogs.ui.fragment.randomDogImage.data.DogBreeds
