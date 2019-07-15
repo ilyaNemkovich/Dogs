@@ -70,5 +70,27 @@
             <include layout="@layout/item_quiz_place_holder" />
             </LinearLayout>
         </com.facebook.shimmer.ShimmerFrameLayout>
+        <TextView
+                android:textSize="20sp"
+                android:text="@string/_0"
+                android:textColor="@android:color/white"
+                android:drawableEnd="@drawable/ic_wrong_24dp"
+                android:drawablePadding="4dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_wrong_answ" android:layout_marginBottom="24dp"
+                app:layout_constraintBottom_toTopOf="@+id/shimmerLayout"
+                app:layout_constraintStart_toStartOf="@+id/shimmerLayout" android:layout_marginStart="16dp"/>
+        <TextView
+                android:textSize="20sp"
+                android:text="@string/_0"
+                android:textColor="@android:color/white"
+                android:drawableEnd="@drawable/ic_right_24dp"
+                android:drawablePadding="4dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_right_answ" app:layout_constraintEnd_toEndOf="@+id/shimmerLayout"
+                android:layout_marginBottom="24dp"
+                app:layout_constraintBottom_toTopOf="@+id/shimmerLayout" android:layout_marginEnd="16dp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

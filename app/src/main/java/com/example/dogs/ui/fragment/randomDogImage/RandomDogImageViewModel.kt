@@ -17,6 +17,9 @@ class RandomDogImageViewModel @Inject constructor(private val dogApi: DogApi) : 
     val mutableRandomImageResponse = MutableLiveData<List<RandomImageQuiz>>()
     val mutableBreadImagesResponse = MutableLiveData<DogBreeds>()
 
+    var wrongAnswers = 0
+    var rightAnswers = 0
+
     init {
         loadRandomUrl()
     }

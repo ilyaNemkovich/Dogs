@@ -1,8 +1,9 @@
 package com.example.dogs.ui.fragment.randomDogImage
 
+import android.animation.ObjectAnimator
+import android.animation.PropertyValuesHolder
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
@@ -13,6 +14,7 @@ import com.example.dogs.databinding.FragmentRandomDogBinding
 import com.example.dogs.ui.base.BaseFragment
 import com.example.dogs.ui.fragment.randomDogImage.adapter.RandomDogQuizAdapter
 import com.example.dogs.ui.fragment.randomDogImage.data.RandomImageQuiz
+import kotlinx.android.synthetic.main.fragment_random_dog.*
 
 class RandomDogImageFragment : BaseFragment<FragmentRandomDogBinding, RandomDogImageViewModel>(),
     RandomDogQuizAdapter.OnItemClickListener {
@@ -25,6 +27,9 @@ class RandomDogImageFragment : BaseFragment<FragmentRandomDogBinding, RandomDogI
         get() = R.layout.fragment_random_dog
     override val bindingVariables: Map<Int, Any>?
         get() = mapOf(Pair(BR.viewModel, viewModel))
+
+    private val pvhX = PropertyValuesHolder.ofFloat("scaleX", 1f, 1.4f, 1f)
+    private val pvhY = PropertyValuesHolder.ofFloat("scaleY", 1f, 1.4f, 1f)
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -42,6 +47,8 @@ class RandomDogImageFragment : BaseFragment<FragmentRandomDogBinding, RandomDogI
                             .apply(options)
                             .into(viewDataBinding.imageView)
                     }
+                viewDataBinding.tvRightAnsw.text = viewModel.rightAnswers.toString()
+                viewDataBinding.tvWrongAnsw.text = viewModel.wrongAnswers.toString()
                 recyclerAdapter.setItems(it)
                 viewDataBinding.shimmerLayout.visibility = View.INVISIBLE
             }
@@ -69,8 +76,16 @@ class RandomDogImageFragment : BaseFragment<FragmentRandomDogBinding, RandomDogI
         viewDataBinding.shimmerLayout.visibility = View.VISIBLE
         recyclerAdapter.clearList()
         when (randomImageQuiz.isAnswer) {
-            true -> Toast.makeText(context, "true", Toast.LENGTH_LONG).show()
-            false -> Toast.makeText(context, "false", Toast.LENGTH_LONG).show()
+            true -> {
+                viewModel.rightAnswers++
+                viewDataBinding.tvRightAnsw.text = viewModel.rightAnswers.toString()
+                ObjectAnimator.ofPropertyValuesHolder(tv_right_answ, pvhX, pvhY).setDuration(700).start()
+            }
+            false -> {
+                viewModel.wrongAnswers++
+                viewDataBinding.tvWrongAnsw.text = viewModel.wrongAnswers.toString()
+                ObjectAnimator.ofPropertyValuesHolder(tv_wrong_answ, pvhX, pvhY).setDuration(700).start()
+            }
         }
         viewModel.loadRandomUrl()
     }
