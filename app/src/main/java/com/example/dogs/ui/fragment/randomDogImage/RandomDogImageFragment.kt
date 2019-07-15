@@ -43,8 +43,7 @@ class RandomDogImageFragment : BaseFragment<FragmentRandomDogBinding, RandomDogI
                             .into(viewDataBinding.imageView)
                     }
                 recyclerAdapter.setItems(it)
-                viewDataBinding.shimmerLayout.visibility = View.GONE
-                viewDataBinding.recyclerView.visibility = View.VISIBLE
+                viewDataBinding.shimmerLayout.visibility = View.INVISIBLE
             }
         })
 
@@ -68,7 +67,7 @@ class RandomDogImageFragment : BaseFragment<FragmentRandomDogBinding, RandomDogI
 
     override fun onItemClick(view: View, randomImageQuiz: RandomImageQuiz) {
         viewDataBinding.shimmerLayout.visibility = View.VISIBLE
-        viewDataBinding.recyclerView.visibility = View.GONE
+        recyclerAdapter.clearList()
         when (randomImageQuiz.isAnswer) {
             true -> Toast.makeText(context, "true", Toast.LENGTH_LONG).show()
             false -> Toast.makeText(context, "false", Toast.LENGTH_LONG).show()
@@ -78,12 +77,12 @@ class RandomDogImageFragment : BaseFragment<FragmentRandomDogBinding, RandomDogI
 
     override fun onResume() {
         super.onResume()
-        viewDataBinding.shimmerLayout.startShimmerAnimation()
+        viewDataBinding.shimmerLayout.startShimmer()
     }
 
     override fun onPause() {
         super.onPause()
-        viewDataBinding.shimmerLayout.stopShimmerAnimation()
+        viewDataBinding.shimmerLayout.stopShimmer()
     }
 
     companion object {

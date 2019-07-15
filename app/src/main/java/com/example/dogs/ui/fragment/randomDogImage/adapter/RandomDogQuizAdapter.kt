@@ -33,6 +33,11 @@ class RandomDogQuizAdapter(private val listener: OnItemClickListener) :
         notifyDataSetChanged()
     }
 
+    fun clearList() {
+        _quizList.clear()
+        notifyDataSetChanged()
+    }
+
     override fun getItemCount(): Int = _quizList.size
 
     interface OnItemClickListener {
