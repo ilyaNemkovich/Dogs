@@ -1,4 +1,4 @@
-package com.example.dogs.dto
+package com.example.dogs.model.data.dto
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName

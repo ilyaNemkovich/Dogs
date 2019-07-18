@@ -2,7 +2,7 @@ package com.example.dogs.di.module
 
 import android.util.Log
 import com.example.dogs.BuildConfig
-import com.example.dogs.data.network.DogApi
+import com.example.dogs.model.data.network.DogApi
 import com.example.dogs.di.annotations.ApplicationScope
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder

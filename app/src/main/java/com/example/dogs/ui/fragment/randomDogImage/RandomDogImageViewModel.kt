@@ -1,17 +1,17 @@
 package com.example.dogs.ui.fragment.randomDogImage
 
 import androidx.lifecycle.MutableLiveData
-import com.example.dogs.data.network.DogApi
+import com.example.dogs.model.repository.DogsRepository
 import com.example.dogs.ui.base.BaseViewModel
 import com.example.dogs.ui.fragment.randomDogImage.data.DogBreeds
 import com.example.dogs.ui.fragment.randomDogImage.data.RandomImageQuiz
-import com.example.dogs.ui.utils.fromUrlToBreed
-import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class RandomDogImageViewModel @Inject constructor(private val dogApi: DogApi) : BaseViewModel() {
+class RandomDogImageViewModel @Inject constructor(
+    private val dogsRepository: DogsRepository
+) : BaseViewModel() {
     val mutableRandomImageResponse = MutableLiveData<List<RandomImageQuiz>>()
     val mutableBreadImagesResponse = MutableLiveData<DogBreeds>()
 
@@ -23,15 +23,7 @@ class RandomDogImageViewModel @Inject constructor(private val dogApi: DogApi) : 
     }
 
     fun loadRandomUrl() {
-        dogApi.getRandomImage()
-            .flatMap {
-                val quiz: MutableList<RandomImageQuiz> = mutableListOf()
-                for (url in it.message!!) {
-                    quiz.add(RandomImageQuiz(url, false, fromUrlToBreed(url)))
-                }
-                quiz[(0..(it.message!!.size - 1)).random()].isAnswer = true
-                Single.just(quiz)
-            }
+        dogsRepository.getQuizeList()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ response ->
@@ -41,17 +33,17 @@ class RandomDogImageViewModel @Inject constructor(private val dogApi: DogApi) : 
             }).let(compositeDisposable::add)
     }
 
-    fun loadImageByBreed(breed: String) {
-//        never used
-        dogApi.getImageByBreed(breed)
-            .flatMap {
-                Single.just(DogBreeds(breed, it.message!!))
-            }
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { response ->
-                mutableBreadImagesResponse.postValue(response)
-            }
-            .let(compositeDisposable::add)
-    }
+//    fun loadImageByBreed(breed: String) {
+////        never used
+//        dogApi.getImageByBreed(breed)
+//            .flatMap {
+//                Single.just(DogBreeds(breed, it.message!!))
+//            }
+//            .subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribe { response ->
+//                mutableBreadImagesResponse.postValue(response)
+//            }
+//            .let(compositeDisposable::add)
+//    }
 }

@@ -33,7 +33,7 @@ class RandomDogImageFragment : BaseFragment<RandomDogImageViewModel>(),
         viewModel.mutableRandomImageResponse.observe(this, Observer {
             if (it != null) {
                 for ((index, value) in it.withIndex())
-                    if (value.isAnswer) {
+                    if (value.isCorrectAnswer) {
                         Glide.with(this)
                             .load(it[(index)].imageUrl)
                             .apply(options)
@@ -67,7 +67,7 @@ class RandomDogImageFragment : BaseFragment<RandomDogImageViewModel>(),
     override fun onItemClick(view: View, randomImageQuiz: RandomImageQuiz) {
         shimmerLayout.visibility = View.VISIBLE
         recyclerAdapter.clearList()
-        when (randomImageQuiz.isAnswer) {
+        when (randomImageQuiz.isCorrectAnswer) {
             true -> {
                 viewModel.rightAnswers++
                 tv_right_answ.text = viewModel.rightAnswers.toString()
