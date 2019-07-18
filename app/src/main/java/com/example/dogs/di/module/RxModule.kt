@@ -6,7 +6,6 @@ import io.reactivex.disposables.CompositeDisposable
 
 @Module
 class RxModule {
-
     @Provides
     fun provideCompositeDisposable() = CompositeDisposable()
 }

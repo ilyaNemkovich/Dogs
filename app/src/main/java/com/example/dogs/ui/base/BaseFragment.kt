@@ -1,49 +1,53 @@
 package com.example.dogs.ui.base
 
-import androidx.lifecycle.ViewModelProvider
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import android.os.Bundle
-import androidx.annotation.LayoutRes
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.LayoutRes
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import dagger.android.support.DaggerFragment
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
+import kotlin.reflect.KClass
 
-abstract class BaseFragment<T: ViewDataBinding, V: BaseViewModel> : DaggerFragment() {
+abstract class BaseFragment<V : BaseViewModel> : DaggerFragment() {
     @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-    abstract val viewModel: V
+    protected lateinit var viewModelFactory: ViewModelProvider.Factory
+    protected lateinit var viewModel: V
 
     @get:LayoutRes
     abstract val layoutId: Int
-    lateinit var viewDataBinding: T
-    open val bindingVariables: Map<Int, Any>? = null
 
+    protected open val isViewModelShared
+        get() = false
 
     @Inject
     lateinit var compositeDisposable: CompositeDisposable
 
+    protected abstract fun getViewModelClass(): KClass<V>
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        initViewModel()
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        viewDataBinding = DataBindingUtil.inflate(inflater, layoutId, container, false)
-        return viewDataBinding.root
+        return inflater.inflate(layoutId, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        bindingVariables?.forEach { (variable, obj) -> viewDataBinding.setVariable(variable, obj) }
-        viewDataBinding.executePendingBindings()
+    private fun initViewModel() {
+        viewModel = if (isViewModelShared) {
+            ViewModelProviders.of(requireActivity(), viewModelFactory).get(getViewModelClass().java)
+        } else {
+            ViewModelProviders.of(this, viewModelFactory).get(getViewModelClass().java)
+        }
     }
 
-    override fun onDetach() {
-        super.onDetach()
+    override fun onDestroyView() {
+        super.onDestroyView()
         compositeDisposable.dispose()
     }
 

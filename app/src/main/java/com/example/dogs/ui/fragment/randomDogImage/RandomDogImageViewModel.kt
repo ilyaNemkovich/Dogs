@@ -1,6 +1,5 @@
 package com.example.dogs.ui.fragment.randomDogImage
 
-import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import com.example.dogs.data.network.DogApi
 import com.example.dogs.ui.base.BaseViewModel
@@ -13,7 +12,6 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class RandomDogImageViewModel @Inject constructor(private val dogApi: DogApi) : BaseViewModel() {
-    val randomImageResponse = ObservableField<List<RandomImageQuiz>>()
     val mutableRandomImageResponse = MutableLiveData<List<RandomImageQuiz>>()
     val mutableBreadImagesResponse = MutableLiveData<DogBreeds>()
 
@@ -31,13 +29,12 @@ class RandomDogImageViewModel @Inject constructor(private val dogApi: DogApi) : 
                 for (url in it.message!!) {
                     quiz.add(RandomImageQuiz(url, false, fromUrlToBreed(url)))
                 }
-                quiz[(0..(it.message!!.size -1)).random()].isAnswer = true
+                quiz[(0..(it.message!!.size - 1)).random()].isAnswer = true
                 Single.just(quiz)
             }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe ({ response ->
-                randomImageResponse.set(response)
+            .subscribe({ response ->
                 mutableRandomImageResponse.postValue(response)
             }, {
 

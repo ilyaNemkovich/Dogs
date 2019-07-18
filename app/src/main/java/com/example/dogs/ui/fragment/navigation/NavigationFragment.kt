@@ -11,15 +11,14 @@ import com.example.dogs.R
 import com.example.dogs.databinding.FragmentNavigationBinding
 import com.example.dogs.ui.base.BaseFragment
 import com.google.android.material.button.MaterialButton
+import kotlinx.android.synthetic.main.fragment_navigation.*
+import kotlin.reflect.KClass
 
-class NavigationFragment : BaseFragment<FragmentNavigationBinding, NavigationViewModel>() {
+class NavigationFragment : BaseFragment<NavigationViewModel>() {
+    override fun getViewModelClass() = NavigationViewModel::class
+    override val layoutId: Int get() = R.layout.fragment_navigation
 
-    override val viewModel: NavigationViewModel
-        get() = ViewModelProviders.of(this, viewModelFactory).get(NavigationViewModel::class.java)
-    override val layoutId: Int
-        get() = R.layout.fragment_navigation
-
-    lateinit var transitionsContainer: ViewGroup
+    private lateinit var transitionsContainer: ViewGroup
     lateinit var image: ImageView
     lateinit var infoButton: MaterialButton
     lateinit var quizButton: MaterialButton
@@ -27,10 +26,10 @@ class NavigationFragment : BaseFragment<FragmentNavigationBinding, NavigationVie
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewDataBinding.btnQuiz.setOnClickListener {
+        btnInfo.setOnClickListener {
             Navigation.findNavController(it).navigate(R.id.action_navigationFragment_to_randomDogImageFragment)
         }
-        viewDataBinding.btnInfo.setOnClickListener {
+        btnQuiz.setOnClickListener {
             Navigation.findNavController(it).navigate(R.id.action_navigationFragment_to_appInfoFragment)
         }
     }
@@ -40,7 +39,7 @@ class NavigationFragment : BaseFragment<FragmentNavigationBinding, NavigationVie
 
         var visible = true
 
-        transitionsContainer = viewDataBinding.layoutContainer
+        transitionsContainer = layout_container
         image = transitionsContainer.findViewById(R.id.imageView2)
         infoButton = transitionsContainer.findViewById(R.id.btnInfo)
         quizButton = transitionsContainer.findViewById(R.id.btnQuiz)
