@@ -1,6 +1,7 @@
 package com.example.dogs.model.repository
 
 import com.example.dogs.model.data.network.DogApi
+import com.example.dogs.ui.fragment.randomDogImage.data.DogBreeds
 import com.example.dogs.ui.fragment.randomDogImage.data.RandomImageQuiz
 import com.example.dogs.ui.utils.fromUrlToBreed
 import io.reactivex.Single
@@ -35,6 +36,15 @@ class DogsRepository @Inject constructor(
                 }
                 quiz.random().isCorrectAnswer = true
                 Single.just(quiz)
+            }
+    }
+
+    fun loadImageByBreed(breed: String): Single<DogBreeds> {
+        val breadQ = breed.replace("-", "/")
+        val url = "https://dog.ceo/api/breed/$breadQ/images"
+        return dogApi.getImageByBreed(url)
+            .flatMap {
+                Single.just(DogBreeds(breed, it.message!!))
             }
     }
 }

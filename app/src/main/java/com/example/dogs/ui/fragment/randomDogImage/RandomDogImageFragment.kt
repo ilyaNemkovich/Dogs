@@ -2,6 +2,7 @@ package com.example.dogs.ui.fragment.randomDogImage
 
 import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
@@ -23,35 +24,41 @@ class RandomDogImageFragment : BaseFragment<RandomDogImageViewModel>(),
     private val pvhX = PropertyValuesHolder.ofFloat("scaleX", 1f, 1.4f, 1f)
     private val pvhY = PropertyValuesHolder.ofFloat("scaleY", 1f, 1.4f, 1f)
 
+    private var bread = "bread"
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         setupView()
+        setupViewListeners()
         subscribeToLiveData()
     }
 
+    private fun setupViewListeners() {
+        fl_refresh.setOnClickListener {
+            viewModel.changeImage()
+        }
+    }
+
+    @SuppressLint("RestrictedApi")
     private fun subscribeToLiveData() {
         viewModel.mutableRandomImageResponse.observe(this, Observer {
             if (it != null) {
-                for ((index, value) in it.withIndex())
-                    if (value.isCorrectAnswer) {
-                        Glide.with(this)
-                            .load(it[(index)].imageUrl)
-                            .apply(options)
-                            .into(imageView)
-                    }
                 tv_right_answ.text = viewModel.rightAnswers.toString()
                 tv_wrong_answ.text = viewModel.wrongAnswers.toString()
                 recyclerAdapter.setItems(it)
+                bread = it.first { randomImageQuiz -> randomImageQuiz.isCorrectAnswer }.breed
                 shimmerLayout.visibility = View.INVISIBLE
             }
         })
-
-        viewModel.mutableBreadImagesResponse.observe(this, Observer {
+        viewModel.mutableCurrentImage.observe(this, Observer {
             if (it != null) {
+                fl_refresh.visibility = View.VISIBLE
                 Glide.with(this)
-                    .load(it.imageUrls[(0..(it.imageUrls.size - 1)).random()])
+                    .load(it)
                     .apply(options)
                     .into(imageView)
+            } else{
+                fl_refresh.visibility = View.GONE
             }
         })
     }

@@ -14,6 +14,7 @@ class RandomDogImageViewModel @Inject constructor(
 ) : BaseViewModel() {
     val mutableRandomImageResponse = MutableLiveData<List<RandomImageQuiz>>()
     val mutableBreadImagesResponse = MutableLiveData<DogBreeds>()
+    val mutableCurrentImage = MutableLiveData<String>()
 
     var wrongAnswers = 0
     var rightAnswers = 0
@@ -28,22 +29,31 @@ class RandomDogImageViewModel @Inject constructor(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ response ->
                 mutableRandomImageResponse.postValue(response)
+                mutableCurrentImage.postValue(response.first { it.isCorrectAnswer }.imageUrl)
+                getBreadImages(response.first { it.isCorrectAnswer }.breed)
             }, {
-
+                it.printStackTrace()
             }).let(compositeDisposable::add)
     }
 
-//    fun loadImageByBreed(breed: String) {
-////        never used
-//        dogApi.getImageByBreed(breed)
-//            .flatMap {
-//                Single.just(DogBreeds(breed, it.message!!))
-//            }
-//            .subscribeOn(Schedulers.io())
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .subscribe { response ->
-//                mutableBreadImagesResponse.postValue(response)
-//            }
-//            .let(compositeDisposable::add)
-//    }
+    fun getBreadImages(bread: String) {
+        dogsRepository.loadImageByBreed(bread)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ response ->
+                if (response.imageUrls.isEmpty()) {
+                    mutableCurrentImage.postValue(null)
+                } else {
+                    mutableBreadImagesResponse.postValue(response)
+                }
+            }, {
+                it.printStackTrace()
+            }).let(compositeDisposable::add)
+    }
+
+    fun changeImage() {
+        mutableBreadImagesResponse.value?.apply {
+            mutableCurrentImage.postValue(this.imageUrls.random())
+        }
+    }
 }

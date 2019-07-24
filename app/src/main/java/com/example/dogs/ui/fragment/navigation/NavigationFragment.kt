@@ -26,10 +26,10 @@ class NavigationFragment : BaseFragment<NavigationViewModel>() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        btnInfo.setOnClickListener {
+        btnQuiz.setOnClickListener {
             Navigation.findNavController(it).navigate(R.id.action_navigationFragment_to_randomDogImageFragment)
         }
-        btnQuiz.setOnClickListener {
+        btnInfo.setOnClickListener {
             Navigation.findNavController(it).navigate(R.id.action_navigationFragment_to_appInfoFragment)
         }
     }
