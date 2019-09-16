@@ -7,7 +7,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.transition.DrawableCrossFadeFactory
 import com.example.dogs.R
 import com.example.dogs.ui.base.BaseFragment
 import com.example.dogs.ui.fragment.randomDogImage.adapter.RandomDogQuizAdapter
@@ -53,11 +55,11 @@ class RandomDogImageFragment : BaseFragment<RandomDogImageViewModel>(),
         viewModel.mutableCurrentImage.observe(this, Observer {
             if (it != null) {
                 fl_refresh.visibility = View.VISIBLE
-                Glide.with(this)
+                Glide.with(imageView)
                     .load(it)
                     .apply(options)
                     .into(imageView)
-            } else{
+            } else {
                 fl_refresh.visibility = View.GONE
             }
         })
@@ -106,9 +108,9 @@ class RandomDogImageFragment : BaseFragment<RandomDogImageViewModel>(),
         }
 
         val options = RequestOptions().apply {
-            optionalCircleCrop()
+            //            optionalCircleCrop()
             placeholder(R.drawable.dog_ph)
-            apply(RequestOptions().circleCrop())
+//            apply(RequestOptions().circleCrop())
             error(R.drawable.load_error_dog)
         }
     }
